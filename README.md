@@ -23,7 +23,7 @@ O objetivo é demonstrar o uso de **Spring MVC**, **Thymeleaf** e **JPA/Hibernat
 
 ### 1. Clonar o repositório.
 ```bash
-git clone https://github.com/seuusuario/blog-pessoas.git
+git clone https://github.com/MicaelliSilva/thymeleaf-cadastro-pessoa
 ```
 ### 2. Executar _BlogApplication.java_.
 
