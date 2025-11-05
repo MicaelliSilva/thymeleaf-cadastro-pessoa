@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Lista de Pessoas</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .card {
+            border-radius: 1rem;
+        }
+        .table thead {
+            background-color: #0d6efd;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+<div class="container my-5">
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary">Cadastro de Pessoas</h2>
+        <p class="text-muted">Gerencie suas pessoas cadastradas no sistema</p>
+    </div>
+
+    <div class="card shadow-sm">
+        <div class="card-body p-4">
+            <div class="d-flex justify-content-between mb-3">
+                <h5 class="fw-semibold">Lista de Pessoas</h5>
+                <a class="btn btn-primary" th:href="@{/add}">
+                    <i class="bi bi-person-plus"></i> Nova Pessoa
+                </a>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-hover align-middle text-center">
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Telefone</th>
+                        <th>Email</th>
+                        <th>Data Nascimento</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="pessoa : ${posts}">
+                        <td th:text="${pessoa.id}"></td>
+                        <td th:text="${pessoa.nome}"></td>
+                        <td th:text="${pessoa.telefone}"></td>
+                        <td th:text="${pessoa.email}"></td>
+                        <td th:text="${#dates.format(pessoa.data, 'dd/MM/yyyy')}"></td>
+                        <td>
+                            <div class="d-flex justify-content-center gap-2">
+                                <a class="btn btn-sm btn-outline-primary" th:href="@{/edit/{id}(id=${pessoa.id})}">Editar</a>
+                                <a class="btn btn-sm btn-outline-danger" th:href="@{/delete/{id}(id=${pessoa.id})}"
+                                   onclick="return confirm('Tem certeza que deseja excluir esta pessoa?')">Excluir</a>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:if="${#lists.isEmpty(posts)}">
+                        <td colspan="7" class="text-muted fst-italic">Nenhuma pessoa cadastrada ainda.</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="card-footer text-muted text-center">
+            Total de pessoas: <span th:text="${#lists.size(posts)}"></span>
+        </div>
+    </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+</body>
+</html>
